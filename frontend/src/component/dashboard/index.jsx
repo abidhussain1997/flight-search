@@ -19,7 +19,7 @@ import {
 import Card from "../commons/card";
 import NoData from "../../assets/no_data1.svg";
 import "./style.css";
-require('dotenv').config();
+require("dotenv").config();
 
 export default class Dashboard extends React.Component {
   constructor(props) {
@@ -36,7 +36,9 @@ export default class Dashboard extends React.Component {
       destinationCity: "",
       priceRange: [0, 1],
       minPrice: 0,
-      maxPrice: 0
+      maxPrice: 0,
+      originError: false,
+      destinationError: false
     };
   }
 
@@ -46,10 +48,27 @@ export default class Dashboard extends React.Component {
       destinationCity,
       departureDate,
       returnDate,
-      tripType
+      tripType,
+      originError,
+      destinationError
     } = this.state;
 
-    departureDate = `${departureDate.getDate()}/${departureDate.getMonth()}/${departureDate.getFullYear()}`;
+    if (originCity.trim() === "") {
+      this.setState({
+        originError: true
+      });
+      if (destinationCity.trim() === "") {
+        this.setState({
+          destinationError: true
+        });
+        return
+      } else {
+        return
+      }
+    }
+
+    if( !originError && !destinationError ) {
+      departureDate = `${departureDate.getDate()}/${departureDate.getMonth()}/${departureDate.getFullYear()}`;
     returnDate = `${returnDate.getDate()}/${returnDate.getMonth()}/${returnDate.getFullYear()}`;
 
     if (tripType === "0") {
@@ -71,6 +90,8 @@ export default class Dashboard extends React.Component {
           return resp.json();
         })
         .then(resp => {
+          let departureDate = this.state.departureDate.toDateString();
+          console.log(departureDate);
           this.setState({
             tripString: originCity + " > " + destinationCity,
             dateString: departureDate,
@@ -105,6 +126,8 @@ export default class Dashboard extends React.Component {
           return resp.json();
         })
         .then(resp => {
+          let departureDate = this.state.departureDate.toDateString();
+          let returnDate = this.state.returnDate.toDateString();
           this.setState({
             flights: resp.data,
             rawData: resp.data,
@@ -120,6 +143,7 @@ export default class Dashboard extends React.Component {
           }
         });
     }
+    }
   };
 
   render() {
@@ -131,7 +155,7 @@ export default class Dashboard extends React.Component {
     };
 
     const handleFromDateChange = date => {
-      this.setState({ departureDate: date });
+      this.setState({ departureDate: date, returnDate: date });
     };
 
     const handleToDateChange = date => {
@@ -140,13 +164,15 @@ export default class Dashboard extends React.Component {
 
     const handelFromFieldChange = event => {
       this.setState({
-        originCity: event.target.value.toUpperCase()
+        originCity: event.target.value.toUpperCase(),
+        originError: false
       });
     };
 
     const handelToFieldChange = event => {
       this.setState({
-        destinationCity: event.target.value.toUpperCase()
+        destinationCity: event.target.value.toUpperCase(),
+        destinationError: false
       });
     };
 
@@ -157,7 +183,8 @@ export default class Dashboard extends React.Component {
       if (this.state.tripType === "1") {
         filteredPayload = preProcessData.filter(each => {
           if (
-            each.flight.totalPrice < newValue[1] && each.flight.totalPrice > newValue[0]
+            each.flight.totalPrice < newValue[1] &&
+            each.flight.totalPrice > newValue[0]
           ) {
             return true;
           }
@@ -205,6 +232,8 @@ export default class Dashboard extends React.Component {
                   </RadioGroup>
                 </FormControl>
                 <TextField
+                  required
+                  error={this.state.originError}
                   id="standard-basic"
                   label="From"
                   onChange={handelFromFieldChange}
@@ -212,6 +241,8 @@ export default class Dashboard extends React.Component {
                   className="filter-textfield"
                 />
                 <TextField
+                  required
+                  error={this.state.destinationError}
                   id="standard-basic"
                   label="To"
                   onChange={handelToFieldChange}
