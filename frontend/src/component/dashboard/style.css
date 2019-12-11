@@ -1,0 +1,72 @@
+.sidebar-container {
+  padding: 4px 16px;
+  margin-right: 8px;
+}
+
+.content-container {
+  padding: 4px 16px;
+}
+
+.flight-title{
+  padding: 16px 16px 8px 16px;
+}
+
+.search-flight-detail{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 24px;
+  padding: 0px 16px;
+}
+
+.search-flight-detail p {
+  margin: 8px 0px;
+}
+
+.flight-search-date{
+  margin: 0px 16px;
+}
+
+.price-range-title{
+  margin: 40px 0px;
+}
+
+.filter-header{
+  margin-bottom: 16px;
+  font-size: 20px;
+}
+
+.search-btn {
+  margin-bottom: 16px;
+}
+
+.no-data-contanier{
+  text-align: center;
+}
+
+.no-data-contanier > p {
+  font-size: 32px;
+}
+
+.no-data-img {
+  width: 50%;
+  position: relative;
+}
+
+.filter-textfield {
+  margin-top: 16px !important;
+}
+
+.rd-btn-type{
+  color: rgb(244, 180, 0) !important;
+}
+
+.MuiSlider-root {
+  color: rgb(244, 180, 0) !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .no-data-img {
+    width: 80%;
+  }
+}

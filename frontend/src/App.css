@@ -1,0 +1,15 @@
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.dashboard-container{
+  margin-top: 32px;
+}
+
+.MuiPickersToolbar-toolbar , .MuiPickersDay-daySelected {
+  background-color: rgb(244, 180, 0) !important;
+}
+
+.MuiPickersDay-current {
+  color: rgb(244, 180, 0) !important;
+}

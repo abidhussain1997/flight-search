@@ -1,0 +1,39 @@
+.card-wrapper > div{
+  margin: 16px;
+  padding: 8px;
+}
+
+.MuiCardContent-root:last-child {
+  padding-bottom: 8px !important;
+}
+
+.flight-details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+}
+
+.card-header-title{
+  margin-bottom: 8px;
+}
+
+.flight-cards {
+  margin-bottom: 16px;
+}
+
+.search-btn { 
+  margin: 16px 0px !important;
+}
+
+.final-price{
+  color: #389e0d;
+  font-weight: 600;
+}
+
+@media only screen and (max-width: 600px) {
+  .card-wrapper > div{
+    margin: 16px 0px;
+    padding: 0px;
+  }
+}
